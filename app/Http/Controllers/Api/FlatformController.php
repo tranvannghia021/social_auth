@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Facebook;
-use App\Trait\ApiResponse;
+
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class FlatformController extends Controller
 {
-    use ApiResponse;
+
     function generateUrl($flatform)
     {
         $data = ['flatform' => $flatform];
@@ -22,6 +22,10 @@ class FlatformController extends Controller
                 $data['url'] = null;
                 return $this->ApiResponse($data, 'flatform not support');
         }
-        return $this->ApiResponse($data, 'generate-url');
+        return response()->json([
+            'status' => true,
+            'message' => 'generate-url',
+            'data' => $data
+        ]);
     }
 }

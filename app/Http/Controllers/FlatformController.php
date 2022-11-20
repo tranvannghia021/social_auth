@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Trait\ApiResponse;
+
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class FlatformController extends Controller
 {
-    use ApiResponse;
+
     function generateUrl($flatform)
     {
         switch ($flatform) {
@@ -44,9 +44,17 @@ class FlatformController extends Controller
             }
 
 
-            return $this->apiResponse($data);
+            return response()->json([
+                'status' => true,
+                'message' => 'data',
+                'data' => $data
+            ]);
         } catch (\Exception $e) {
-            return $this->apiResponse([], 'error', false);
+            return response()->json([
+                'status' => false,
+                'message' => 'error',
+                'data' => []
+            ]);
         }
     }
 }
